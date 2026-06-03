@@ -11,7 +11,7 @@
     :root {
       --bg: #0a0a0a;
       --fg: #f0ece3;
-      --accent: #e8ff47;
+      --accent: #FF3B00;
       --muted: #555;
       --card: #111;
       --border: #1e1e1e;
@@ -375,6 +375,127 @@
     }
     .contact-email:hover { color: var(--accent); }
 
+    /* CONTACT FORM */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+      align-items: start;
+    }
+    .contact-form-wrap { display: flex; flex-direction: column; gap: 1.4rem; }
+    .form-field { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .form-input {
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      color: var(--fg);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.82rem;
+      padding: 0.9rem 1.1rem;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      resize: none;
+      width: 100%;
+    }
+    .form-input::placeholder { color: #333; }
+    .form-input:focus { border-color: var(--accent); background: #111; }
+    .form-textarea { height: 120px; }
+    .form-submit {
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+      font-size: 0.8rem;
+      padding: 1rem;
+      border: none;
+    }
+    .form-note {
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+
+    /* DIRECT CONTACT */
+    .contact-direct { display: flex; flex-direction: column; gap: 1px; }
+    .direct-card {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.4rem 1.2rem;
+      border: 1px solid var(--border);
+      margin-bottom: 1px;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+      text-decoration: none;
+      color: var(--fg);
+    }
+    .direct-card:hover { border-color: var(--accent); background: #0f0f0f; }
+    .direct-phone { cursor: pointer; }
+    .direct-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .pulse-icon { animation: pulseIcon 1.8s ease-in-out infinite; }
+    @keyframes pulseIcon {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    .direct-info { display: flex; flex-direction: column; gap: 0.3rem; }
+    .direct-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .direct-value {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--fg);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .direct-card:hover .direct-value { color: var(--accent); }
+    .call-badge {
+      position: absolute;
+      right: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 0.2rem 0.5rem;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .direct-card:hover .call-badge { opacity: 1; }
+    .avail-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: #5cdb5c;
+      margin-top: 1rem;
+      padding: 0.8rem 1.2rem;
+      border: 1px solid #1a2e1a;
+      background: #0a140a;
+    }
+    .avail-dot {
+      width: 7px; height: 7px;
+      background: #5cdb5c;
+      border-radius: 50%;
+      animation: blink 1.4s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
     /* FOOTER */
     footer {
       padding: 2rem 3rem;
@@ -616,13 +737,68 @@
   <section id="contact">
     <p class="section-label reveal">// 04 — Contact</p>
     <div class="contact-big reveal">Let's build<br>something<br><span>weird.</span></div>
-    <p class="reveal" style="color:var(--muted);font-size:0.85rem;margin-bottom:2rem;">Got a project? Need a developer? Want to discuss why PHP is still relevant?<br>I'm all ears (and keyboard).</p>
-    <a href="mailto:rakesh@email.com" class="contact-email reveal">rakesh@email.com</a>
+    <p class="reveal" style="color:var(--muted);font-size:0.85rem;margin-bottom:3.5rem;">Got a project? Need a developer? Want to discuss why PHP is still relevant?<br>I'm all ears (and keyboard). Fill the form — I promise I read emails (eventually).</p>
+
+    <div class="contact-grid reveal">
+      <!-- FORM -->
+      <div class="contact-form-wrap">
+        <div class="form-field">
+          <label class="form-label">// Your Name</label>
+          <input type="text" id="cf-name" class="form-input" placeholder="John Doe" autocomplete="off"/>
+        </div>
+        <div class="form-field">
+          <label class="form-label">// Your Email</label>
+          <input type="email" id="cf-email" class="form-input" placeholder="you@example.com" autocomplete="off"/>
+        </div>
+        <div class="form-field">
+          <label class="form-label">// Subject</label>
+          <input type="text" id="cf-subject" class="form-input" placeholder="Project Enquiry / Just saying hi" autocomplete="off"/>
+        </div>
+        <div class="form-field">
+          <label class="form-label">// Message</label>
+          <textarea id="cf-message" class="form-input form-textarea" placeholder="Tell me about your project... or your debugging nightmare. I've seen worse."></textarea>
+        </div>
+        <button class="btn primary form-submit" id="cf-submit" onclick="sendEmail()">
+          <span id="btn-text">Send Message →</span>
+        </button>
+        <p id="form-note" class="form-note">⚡ Opens your email client with everything pre-filled</p>
+      </div>
+
+      <!-- DIRECT CONTACT -->
+      <div class="contact-direct">
+        <div class="direct-card">
+          <div class="direct-icon">📧</div>
+          <div class="direct-info">
+            <span class="direct-label">// Drop a mail</span>
+            <a href="mailto:rakeshsinha.dev@gmail.com" class="direct-value">rakeshsinha.dev@gmail.com</a>
+          </div>
+        </div>
+        <div class="direct-card direct-phone" onclick="callMe()">
+          <div class="direct-icon pulse-icon">📞</div>
+          <div class="direct-info">
+            <span class="direct-label">// Ring ring (I'll pick up)</span>
+            <a href="tel:+919122327128" class="direct-value">+91 91223 27128</a>
+          </div>
+          <span class="call-badge">TAP TO CALL</span>
+        </div>
+        <div class="direct-card">
+          <div class="direct-icon">💬</div>
+          <div class="direct-info">
+            <span class="direct-label">// WhatsApp (faster)</span>
+            <a href="https://wa.me/919122327128?text=Hi%20Rakesh%2C%20I%20saw%20your%20portfolio%20and%20wanted%20to%20discuss%20a%20project." target="_blank" class="direct-value">+91 91223 27128</a>
+          </div>
+        </div>
+        <div class="avail-badge reveal">
+          <span class="avail-dot"></span>
+          Available for new projects
+        </div>
+      </div>
+    </div>
+
     <div class="contact-links reveal">
       <a href="#" class="contact-link">GitHub</a>
       <a href="#" class="contact-link">LinkedIn</a>
       <a href="#" class="contact-link">Twitter/X</a>
-      <a href="#" class="contact-link">WhatsApp</a>
     </div>
   </section>
 
@@ -670,6 +846,30 @@
       el.style.transitionDelay = (i % 4) * 0.08 + 's';
       observer.observe(el);
     });
+
+    // Contact form → mailto
+    function sendEmail() {
+      const name    = document.getElementById('cf-name').value.trim();
+      const email   = document.getElementById('cf-email').value.trim();
+      const subject = document.getElementById('cf-subject').value.trim();
+      const message = document.getElementById('cf-message').value.trim();
+      if (!name || !email || !subject || !message) {
+        document.getElementById('form-note').textContent = '⚠️ Please fill all fields before sending!';
+        document.getElementById('form-note').style.color = '#ff6b6b';
+        return;
+      }
+      const body = `Hi Rakesh,\n\nMy name is ${name} (${email}).\n\n${message}\n\n---\nSent from your portfolio.`;
+      const mailto = `mailto:rakeshsinha.dev@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+      const btn = document.getElementById('btn-text');
+      btn.textContent = '✅ Opening email client...';
+      setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
+      document.getElementById('form-note').textContent = '⚡ Opens your email client with everything pre-filled';
+      document.getElementById('form-note').style.color = '';
+    }
+
+    // Call feature
+    function callMe() { window.location.href = 'tel:+919122327128'; }
 
     // Active nav
     const sections = document.querySelectorAll('section[id]');
